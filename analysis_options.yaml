@@ -10,6 +10,50 @@
 include: package:flutter_lints/flutter.yaml
 
 linter:
+  rules:
+    avoid_print: false
+
+analyzer:
+  exclude:
+  language:
+    strict-raw-types: true
+  errors:
+    todo: ignore
+    invalid_annotation_target: ignore
+  plugins:
+    - dart_code_metrics
+
+dart_code_metrics:
+  metrics-exclude:
+    - test/**
+  rules:
+    - avoid-non-null-assertion
+    - always-remove-listener
+    - avoid-border-all
+    - avoid-returning-widgets
+    - avoid-shrink-wrap-in-lists
+    - avoid-unnecessary-setstate
+    - avoid-use-expanded-as-spacer
+    - avoid-wrapping-in-padding
+    - prefer-extracting-callbacks
+    - prefer-single-widget-per-file
+    - prefer-const-border-radius
+    - avoid-cascade-after-if-null
+    - avoid-global-state
+    - avoid-ignoring-return-values
+    - prefer-moving-to-variable
+    - prefer-match-file-name
+    - prefer-last
+    - prefer-immediate-return
+    - prefer-first
+    - prefer-conditional-expressions
+    - prefer-async-await
+    - no-equal-then-else
+    - no-empty-block
+    - newline-before-return
+    - avoid-unnecessary-type-casts
+    - avoid-nested-conditional-expressions
+
   # The lint rules applied to this project can be customized in the
   # section below to disable rules from the `package:flutter_lints/flutter.yaml`
   # included above or to enable additional rules. A list of all available lints
@@ -21,7 +65,7 @@ linter:
   # or a specific dart file by using the `// ignore: name_of_lint` and
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
-  rules:
+
     # avoid_print: false  # Uncomment to disable the `avoid_print` rule
     # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
 
