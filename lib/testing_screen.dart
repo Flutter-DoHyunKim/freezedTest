@@ -87,7 +87,6 @@ class _TestingScreenState extends State<TestingScreen> {
       setState(() {});
       return;
     }
-
     if (movieModel.results != []) {
       _clicked = true;
     } else {

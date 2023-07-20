@@ -26,5 +26,6 @@ class PopularMovieService{
 
   }catch(error){
     print(error);
+    return null;
   }
 }}
