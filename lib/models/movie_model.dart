@@ -2,13 +2,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'movie_model.freezed.dart';
 part 'movie_model.g.dart';
-@freezed
-class MovieModel with _$MovieModel{
+@freezed //freezed에게 해당 클래스에 대한 코드를 생성하도록 지시, @unfreezed 사용시 (==, hashcode 사용 못함)
+class MovieModel with _$MovieModel{//_$ mixin을 적용(속성, 메서드 정의) ,$ 붙으면 그냥 freezed에 대한 private 클래스라고 보면 된다.
   const factory MovieModel({
-    required int page,
-    required List<Results> results,
+    required int page, //page 값
+    required List<Results> results, //Results class 아래에 새로 정의
   })=_MovieModel;
-  factory MovieModel.fromJson(Map<String, dynamic> json) => _$MovieModelFromJson(json);
+  factory MovieModel.fromJson(Map<String, dynamic> json) => _$MovieModelFromJson(json); //toJson, fromJson 생성된다
 }
 @freezed
 abstract class Results with _$Results{
