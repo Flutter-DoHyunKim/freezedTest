@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_testing/models/movie_model.dart';
-import 'package:freezed_testing/models/popular_movie_service.dart';
+import 'package:freezed_testing/services/popular_movie_service.dart';
 
 class TestingScreen extends StatefulWidget {
   const TestingScreen({super.key});
