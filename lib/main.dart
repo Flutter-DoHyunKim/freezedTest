@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:freezed_testing/data_source/network/client.dart';
 import 'package:freezed_testing/data_source/network/popular_movie_provider.dart';
 import 'package:freezed_testing/services/repository.dart';
 import 'package:freezed_testing/testing_screen.dart';
 import 'package:provider/provider.dart';
-void main() {
+void main() async{
+  await dotenv.load(fileName: 'lib/assets/config/.env');
 
   runApp(const MyApp());
 }
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const TestingScreen(),
+        home: Center(child: const TestingScreen()),
       ),
     );
   }

@@ -1,12 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:freezed_testing/data_source/network/network_error.dart';
 
 class APIConst {
-  static const String userToken =
-      'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhZDVlNTcyMDJhNDBlYWNmZTEzNzI1MDA3NGY4ZjFhZiIsInN1YiI6IjY0YjhhMGI4NGQyM2RkMDE0NDhjNGI3ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.oJA2FnxFAJUWqSUgWq2X0IqFsZGyrcxjWWOK8ivekc4';
-
   final Map<String, dynamic> baseHeaders = {
-    'Authorization': 'Bearer $userToken'
+    'Authorization': 'Bearer ${dotenv.env['MovieAPI']}'
   };
 
   static Dio makeDio() {
