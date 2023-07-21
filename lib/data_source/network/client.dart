@@ -9,7 +9,8 @@ class APIConst {
     'Authorization': 'Bearer $userToken'
   };
 
-  static Dio makeDio() { //dio 를 미리 생성 하기
+  static Dio makeDio() {
+    //dio 를 미리 생성 하기
     APIConst instance = APIConst();
     return Dio(BaseOptions(
       headers: instance.baseHeaders,
@@ -18,6 +19,7 @@ class APIConst {
       sendTimeout: const Duration(seconds: 2),
       receiveTimeout: const Duration(seconds: 2),
     ))
-      ..interceptors.add(NetWorkErrorInterceptor()); //error catch를 해야하지만 어떤 것을 catch 할지는 결정 못함
+      ..interceptors.add(
+          NetWorkErrorInterceptor()); //error catch를 해야하지만 어떤 것을 catch 할지는 결정 못함
   }
 }
