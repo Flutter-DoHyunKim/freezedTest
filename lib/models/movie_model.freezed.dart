@@ -20,8 +20,8 @@ MovieModel _$MovieModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$MovieModel {
-  int get page => throw _privateConstructorUsedError;
-  List<Results> get results => throw _privateConstructorUsedError;
+  int get page => throw _privateConstructorUsedError; //page 값
+  List<ResultMovieModel> get results => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +35,7 @@ abstract class $MovieModelCopyWith<$Res> {
           MovieModel value, $Res Function(MovieModel) then) =
       _$MovieModelCopyWithImpl<$Res, MovieModel>;
   @useResult
-  $Res call({int page, List<Results> results});
+  $Res call({int page, List<ResultMovieModel> results});
 }
 
 /// @nodoc
@@ -62,7 +62,7 @@ class _$MovieModelCopyWithImpl<$Res, $Val extends MovieModel>
       results: null == results
           ? _value.results
           : results // ignore: cast_nullable_to_non_nullable
-              as List<Results>,
+              as List<ResultMovieModel>,
     ) as $Val);
   }
 }
@@ -75,7 +75,7 @@ abstract class _$$_MovieModelCopyWith<$Res>
       __$$_MovieModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int page, List<Results> results});
+  $Res call({int page, List<ResultMovieModel> results});
 }
 
 /// @nodoc
@@ -100,7 +100,7 @@ class __$$_MovieModelCopyWithImpl<$Res>
       results: null == results
           ? _value._results
           : results // ignore: cast_nullable_to_non_nullable
-              as List<Results>,
+              as List<ResultMovieModel>,
     ));
   }
 }
@@ -109,7 +109,7 @@ class __$$_MovieModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_MovieModel implements _MovieModel {
   const _$_MovieModel(
-      {required this.page, required final List<Results> results})
+      {required this.page, required final List<ResultMovieModel> results})
       : _results = results;
 
   factory _$_MovieModel.fromJson(Map<String, dynamic> json) =>
@@ -117,9 +117,11 @@ class _$_MovieModel implements _MovieModel {
 
   @override
   final int page;
-  final List<Results> _results;
+//page 값
+  final List<ResultMovieModel> _results;
+//page 값
   @override
-  List<Results> get results {
+  List<ResultMovieModel> get results {
     if (_results is EqualUnmodifiableListView) return _results;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_results);
@@ -161,27 +163,27 @@ class _$_MovieModel implements _MovieModel {
 abstract class _MovieModel implements MovieModel {
   const factory _MovieModel(
       {required final int page,
-      required final List<Results> results}) = _$_MovieModel;
+      required final List<ResultMovieModel> results}) = _$_MovieModel;
 
   factory _MovieModel.fromJson(Map<String, dynamic> json) =
       _$_MovieModel.fromJson;
 
   @override
   int get page;
-  @override
-  List<Results> get results;
+  @override //page 값
+  List<ResultMovieModel> get results;
   @override
   @JsonKey(ignore: true)
   _$$_MovieModelCopyWith<_$_MovieModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-Results _$ResultsFromJson(Map<String, dynamic> json) {
-  return _Results.fromJson(json);
+ResultMovieModel _$ResultMovieModelFromJson(Map<String, dynamic> json) {
+  return _ResultMovieModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Results {
+mixin _$ResultMovieModel {
   bool get adult => throw _privateConstructorUsedError;
   @JsonKey(name: 'backdrop_path')
   String get backdropPath =>
@@ -208,13 +210,15 @@ mixin _$Results {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ResultsCopyWith<Results> get copyWith => throw _privateConstructorUsedError;
+  $ResultMovieModelCopyWith<ResultMovieModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ResultsCopyWith<$Res> {
-  factory $ResultsCopyWith(Results value, $Res Function(Results) then) =
-      _$ResultsCopyWithImpl<$Res, Results>;
+abstract class $ResultMovieModelCopyWith<$Res> {
+  factory $ResultMovieModelCopyWith(
+          ResultMovieModel value, $Res Function(ResultMovieModel) then) =
+      _$ResultMovieModelCopyWithImpl<$Res, ResultMovieModel>;
   @useResult
   $Res call(
       {bool adult,
@@ -234,9 +238,9 @@ abstract class $ResultsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ResultsCopyWithImpl<$Res, $Val extends Results>
-    implements $ResultsCopyWith<$Res> {
-  _$ResultsCopyWithImpl(this._value, this._then);
+class _$ResultMovieModelCopyWithImpl<$Res, $Val extends ResultMovieModel>
+    implements $ResultMovieModelCopyWith<$Res> {
+  _$ResultMovieModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -323,10 +327,11 @@ class _$ResultsCopyWithImpl<$Res, $Val extends Results>
 }
 
 /// @nodoc
-abstract class _$$_ResultsCopyWith<$Res> implements $ResultsCopyWith<$Res> {
-  factory _$$_ResultsCopyWith(
-          _$_Results value, $Res Function(_$_Results) then) =
-      __$$_ResultsCopyWithImpl<$Res>;
+abstract class _$$_ResultMovieModelCopyWith<$Res>
+    implements $ResultMovieModelCopyWith<$Res> {
+  factory _$$_ResultMovieModelCopyWith(
+          _$_ResultMovieModel value, $Res Function(_$_ResultMovieModel) then) =
+      __$$_ResultMovieModelCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -347,10 +352,11 @@ abstract class _$$_ResultsCopyWith<$Res> implements $ResultsCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ResultsCopyWithImpl<$Res>
-    extends _$ResultsCopyWithImpl<$Res, _$_Results>
-    implements _$$_ResultsCopyWith<$Res> {
-  __$$_ResultsCopyWithImpl(_$_Results _value, $Res Function(_$_Results) _then)
+class __$$_ResultMovieModelCopyWithImpl<$Res>
+    extends _$ResultMovieModelCopyWithImpl<$Res, _$_ResultMovieModel>
+    implements _$$_ResultMovieModelCopyWith<$Res> {
+  __$$_ResultMovieModelCopyWithImpl(
+      _$_ResultMovieModel _value, $Res Function(_$_ResultMovieModel) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -371,7 +377,7 @@ class __$$_ResultsCopyWithImpl<$Res>
     Object? voteAverage = null,
     Object? voteCount = null,
   }) {
-    return _then(_$_Results(
+    return _then(_$_ResultMovieModel(
       adult: null == adult
           ? _value.adult
           : adult // ignore: cast_nullable_to_non_nullable
@@ -434,8 +440,8 @@ class __$$_ResultsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Results implements _Results {
-  _$_Results(
+class _$_ResultMovieModel implements _ResultMovieModel {
+  _$_ResultMovieModel(
       {required this.adult,
       @JsonKey(name: 'backdrop_path') required this.backdropPath,
       @JsonKey(name: 'genre_ids') required final List<int> genreIds,
@@ -452,8 +458,8 @@ class _$_Results implements _Results {
       @JsonKey(name: 'vote_count') required this.voteCount})
       : _genreIds = genreIds;
 
-  factory _$_Results.fromJson(Map<String, dynamic> json) =>
-      _$$_ResultsFromJson(json);
+  factory _$_ResultMovieModel.fromJson(Map<String, dynamic> json) =>
+      _$$_ResultMovieModelFromJson(json);
 
   @override
   final bool adult;
@@ -502,14 +508,14 @@ class _$_Results implements _Results {
 
   @override
   String toString() {
-    return 'Results(adult: $adult, backdropPath: $backdropPath, genreIds: $genreIds, id: $id, originalLanguage: $originalLanguage, originalTitle: $originalTitle, overview: $overview, popularity: $popularity, posterPath: $posterPath, releaseDate: $releaseDate, title: $title, video: $video, voteAverage: $voteAverage, voteCount: $voteCount)';
+    return 'ResultMovieModel(adult: $adult, backdropPath: $backdropPath, genreIds: $genreIds, id: $id, originalLanguage: $originalLanguage, originalTitle: $originalTitle, overview: $overview, popularity: $popularity, posterPath: $posterPath, releaseDate: $releaseDate, title: $title, video: $video, voteAverage: $voteAverage, voteCount: $voteCount)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Results &&
+            other is _$_ResultMovieModel &&
             (identical(other.adult, adult) || other.adult == adult) &&
             (identical(other.backdropPath, backdropPath) ||
                 other.backdropPath == backdropPath) &&
@@ -557,19 +563,19 @@ class _$_Results implements _Results {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ResultsCopyWith<_$_Results> get copyWith =>
-      __$$_ResultsCopyWithImpl<_$_Results>(this, _$identity);
+  _$$_ResultMovieModelCopyWith<_$_ResultMovieModel> get copyWith =>
+      __$$_ResultMovieModelCopyWithImpl<_$_ResultMovieModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ResultsToJson(
+    return _$$_ResultMovieModelToJson(
       this,
     );
   }
 }
 
-abstract class _Results implements Results {
-  factory _Results(
+abstract class _ResultMovieModel implements ResultMovieModel {
+  factory _ResultMovieModel(
       {required final bool adult,
       @JsonKey(name: 'backdrop_path')
           required final String backdropPath,
@@ -591,9 +597,10 @@ abstract class _Results implements Results {
       @JsonKey(name: 'vote_average')
           required final double voteAverage,
       @JsonKey(name: 'vote_count')
-          required final int voteCount}) = _$_Results;
+          required final int voteCount}) = _$_ResultMovieModel;
 
-  factory _Results.fromJson(Map<String, dynamic> json) = _$_Results.fromJson;
+  factory _ResultMovieModel.fromJson(Map<String, dynamic> json) =
+      _$_ResultMovieModel.fromJson;
 
   @override
   bool get adult;
@@ -633,6 +640,6 @@ abstract class _Results implements Results {
   int get voteCount;
   @override
   @JsonKey(ignore: true)
-  _$$_ResultsCopyWith<_$_Results> get copyWith =>
+  _$$_ResultMovieModelCopyWith<_$_ResultMovieModel> get copyWith =>
       throw _privateConstructorUsedError;
 }

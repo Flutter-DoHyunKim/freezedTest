@@ -10,7 +10,7 @@ _$_MovieModel _$$_MovieModelFromJson(Map<String, dynamic> json) =>
     _$_MovieModel(
       page: json['page'] as int,
       results: (json['results'] as List<dynamic>)
-          .map((e) => Results.fromJson(e as Map<String, dynamic>))
+          .map((e) => ResultMovieModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -20,7 +20,8 @@ Map<String, dynamic> _$$_MovieModelToJson(_$_MovieModel instance) =>
       'results': instance.results,
     };
 
-_$_Results _$$_ResultsFromJson(Map<String, dynamic> json) => _$_Results(
+_$_ResultMovieModel _$$_ResultMovieModelFromJson(Map<String, dynamic> json) =>
+    _$_ResultMovieModel(
       adult: json['adult'] as bool,
       backdropPath: json['backdrop_path'] as String,
       genreIds:
@@ -38,7 +39,7 @@ _$_Results _$$_ResultsFromJson(Map<String, dynamic> json) => _$_Results(
       voteCount: json['vote_count'] as int,
     );
 
-Map<String, dynamic> _$$_ResultsToJson(_$_Results instance) =>
+Map<String, dynamic> _$$_ResultMovieModelToJson(_$_ResultMovieModel instance) =>
     <String, dynamic>{
       'adult': instance.adult,
       'backdrop_path': instance.backdropPath,

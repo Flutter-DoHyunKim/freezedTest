@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:freezed_testing/data_source/network/popular_movie_provider.dart';
 import 'package:freezed_testing/models/movie_model.dart';
-import 'package:freezed_testing/services/popular_movie_service.dart';
+import 'package:provider/provider.dart';
 
 class TestingScreen extends StatefulWidget {
   const TestingScreen({super.key});
@@ -10,12 +11,13 @@ class TestingScreen extends StatefulWidget {
   State<TestingScreen> createState() => _TestingScreenState();
 }
 
-class _TestingScreenState extends State<TestingScreen> {
-  bool _clicked = false;
-  late MovieModel movieModel;
+class _TestingScreenState extends State<TestingScreen> with ChangeNotifier {
+  List<ResultMovieModel> movieModel = [];
 
   @override
   Widget build(BuildContext context) {
+    movieModel = context.watch<PopularMovieProvider>().movieList;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("TEST Movie API"),
@@ -38,7 +40,7 @@ class _TestingScreenState extends State<TestingScreen> {
             height: 12,
           ),
           Expanded(
-              child: _clicked
+              child: movieModel.isNotEmpty
                   ? ListView.separated(
                       itemBuilder: (BuildContext context, int index) {
                         return Center(
@@ -46,9 +48,10 @@ class _TestingScreenState extends State<TestingScreen> {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                   image: NetworkImage(
-                                      'https://image.tmdb.org/t/p/original${movieModel.results[index].backdropPath}'),
+                                      'https://image.tmdb.org/t/p/original${movieModel[index].backdropPath}'),
                                   fit: BoxFit.cover,
-                                  filterQuality: FilterQuality.low,opacity: 0.5),
+                                  filterQuality: FilterQuality.low,
+                                  opacity: 0.5),
                               borderRadius: BorderRadius.circular(6),
                             ),
                             child: Row(
@@ -56,7 +59,10 @@ class _TestingScreenState extends State<TestingScreen> {
                                 SizedBox(
                                     width: 100,
                                     child: Text(
-                                        movieModel.results[index].originalTitle,style: const TextStyle(fontWeight: FontWeight.w700),)),
+                                      movieModel[index].originalTitle,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w700),
+                                    )),
                                 const Expanded(child: SizedBox()),
                                 Container(
                                   padding: EdgeInsets.zero,
@@ -64,15 +70,23 @@ class _TestingScreenState extends State<TestingScreen> {
                                   constraints:
                                       const BoxConstraints(maxWidth: 200),
                                   height: 300,
-
                                   child: CachedNetworkImage(
-                                    imageUrl:'https://image.tmdb.org/t/p/original${movieModel.results[index].posterPath}',
-                                    fadeInDuration: const Duration(milliseconds: 100),
-                                    fadeOutDuration: const Duration(milliseconds: 100),
+                                    imageUrl:
+                                        'https://image.tmdb.org/t/p/original${movieModel[index].posterPath}',
+                                    fadeInDuration:
+                                        const Duration(milliseconds: 100),
+                                    fadeOutDuration:
+                                        const Duration(milliseconds: 100),
                                     memCacheHeight: 300,
                                     memCacheWidth: 300,
-                                    placeholder: (context, url) => const Center(child:  SizedBox(width:30,height:30,child:  CircularProgressIndicator())),
-                                    errorWidget: (context, url, error) => const Icon(Icons.error),
+                                    placeholder: (context, url) => const Center(
+                                        child: SizedBox(
+                                            width: 30,
+                                            height: 30,
+                                            child:
+                                                CircularProgressIndicator())),
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(Icons.error),
                                   ),
                                 ),
                               ],
@@ -85,7 +99,7 @@ class _TestingScreenState extends State<TestingScreen> {
                           height: 10,
                         );
                       },
-                      itemCount: movieModel.results.length)
+                      itemCount: movieModel.length)
                   : const SizedBox(width: 100, child: Text('empty!!'))),
         ]),
       ),
@@ -93,16 +107,7 @@ class _TestingScreenState extends State<TestingScreen> {
   }
 
   void _tapped() async {
-    movieModel = await PopularMovieService().getPopularMovieService();
-
-    if (_clicked) {
-      _clicked = false;
-    }
-    else if (movieModel.results != []) {
-      _clicked = true;
-    } else {
-      _clicked = false;
-    }
-    setState(() {});
+    await Provider.of<PopularMovieProvider>(context, listen: false)
+        .loadMovieList();
   }
 }
