@@ -15,6 +15,7 @@ class _TestingScreenState extends State<TestingScreen> {
   final controller = Get.find<GetMovieController>();
   final ScrollController _scrollController = ScrollController();
   bool _isLoading = false;
+  bool _theme = false;
 
   // List<ResultMovieModel> movieModel = [];
   int _page = 1;
@@ -60,6 +61,103 @@ class _TestingScreenState extends State<TestingScreen> {
     super.dispose();
   }
 
+  void _showDialog() {
+    Get.dialog(
+      AlertDialog(
+        // 팝업창 크기 조절이 안됨
+        insetPadding: EdgeInsets.zero,
+        titlePadding: const EdgeInsets.only(top: 40, bottom: 15),
+        contentPadding: const EdgeInsets.only(bottom: 40),
+        actionsPadding: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
+        title: const Text(
+          "API 호출하기",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Color(0xff1f1f1f),
+            fontSize: 18,
+            fontFamily: "Pretendard",
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        content: const Opacity(
+          opacity: 0.70,
+          child: Text(
+            "버튼을 클릭하세요",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Color(0xff1f1f1f),
+              fontSize: 14,
+            ),
+          ),
+        ),
+        actions: [
+          Container(
+            width: 150,
+            height: 52,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: const Color(0xfff1eeef),
+            ),
+            child: TextButton(
+              onPressed: () {
+                if (_theme) {
+                  Get.changeTheme(ThemeData.dark());
+                  _theme = false;
+                } else {
+                  Get.changeTheme(ThemeData.light());
+                  _theme = true;
+                }
+                Get.back();
+              },
+              child: const Text(
+                "테마 바꾸기",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xff1f1f1f),
+                  fontSize: 16,
+                  fontFamily: "Pretendard",
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 5,
+          ),
+          Container(
+            width: 150,
+            height: 52,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: const Color(0xfff63c6e),
+            ),
+            child: TextButton(
+                onPressed: () async {
+                  controller.loadMovieList(_page);
+                  Get.back();
+                },
+                child: const Text(
+                  "호출",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontFamily: "Pretendard",
+                    fontWeight: FontWeight.w600,
+                  ),
+                )),
+          ),
+        ],
+        actionsAlignment: MainAxisAlignment.spaceEvenly,
+        elevation: 50,
+        backgroundColor: Colors.white,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     //final List<ResultMovieModel> movieModel = context.watch<PopularMovieProvider>().movieList;
@@ -84,7 +182,8 @@ class _TestingScreenState extends State<TestingScreen> {
             height: 50,
           ),
           InkWell(
-              onTap: _tapped,
+              onTap: _showDialog,
+              //Get.snackbar('hi','message'); 이렇게 하면 notification 처럼 snackbar 나옴
               child: Container(
                 width: 200,
                 height: 100,
@@ -95,7 +194,8 @@ class _TestingScreenState extends State<TestingScreen> {
             height: 12,
           ),
           Obx(() {
-            final List<ResultMovieModel> movieModel = controller.movieList; //value를 사용하면 Rx내 List에 직접 접근하는 방식으로 가장 최근의 값을 가져온다, 여기서는 RxList라 value 없어도 됨.
+            final List<ResultMovieModel> movieModel = controller
+                .movieList; //value를 사용하면 Rx내 List에 직접 접근하는 방식으로 가장 최근의 값을 가져온다, 여기서는 RxList라 value 없어도 됨.
             return Expanded(
                 child: movieModel.isNotEmpty
                     ? ListView.separated(
@@ -165,11 +265,12 @@ class _TestingScreenState extends State<TestingScreen> {
     );
   }
 
-  void _tapped() {
-    controller.loadMovieList(_page);
+/*void _tapped() {
+    Get.to(_showDialog());
+
 
     //context.read<PopularMovieProvider>().loadMovieList(_page);
     /*await Provider.of<PopularMovieProvider>(context, listen: false)
         .loadMovieList(_page);*/
-  }
+  }*/
 }
