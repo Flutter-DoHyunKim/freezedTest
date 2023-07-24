@@ -13,7 +13,8 @@ class PopularMovieProvider with ChangeNotifier {
   Future<void> loadMovieList(int page) async {
     MovieModel? result = await repositoryType.getPopularMovie(page);
     if (result != null) {
-      movieList.addAll(result.results);
+      //_movieList.addAll(result.results);
+      _movieList=[..._movieList,...result.results];
       temp++;
     } //_movieList update
     else {
