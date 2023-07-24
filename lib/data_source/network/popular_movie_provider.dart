@@ -9,11 +9,12 @@ class PopularMovieProvider with ChangeNotifier {
 
   List<ResultMovieModel> _movieList = []; //외부에서 안 건드리도록
   List<ResultMovieModel> get movieList => _movieList; //간접적으로 접근하기
-
-  Future<void> loadMovieList() async {
-    MovieModel? result = await repositoryType.getPopularMovie();
+  int temp=1;
+  Future<void> loadMovieList(int page) async {
+    MovieModel? result = await repositoryType.getPopularMovie(page);
     if (result != null) {
-      _movieList = result.results;
+      movieList.addAll(result.results);
+      temp++;
     } //_movieList update
     else {
       _movieList = [];

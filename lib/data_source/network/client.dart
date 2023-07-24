@@ -7,7 +7,7 @@ class APIConst {
     'Authorization': 'Bearer ${dotenv.env['MovieAPI']}'
   };
 
-  static Dio makeDio() {
+  static Dio makeDio() { //method, static method: 클래스의 인스턴스를 생성할 필요 없이 직접 호출할 수 있으므로 코드를 간결하게 유지
     //dio 를 미리 생성 하기
     APIConst instance = APIConst();
     return Dio(BaseOptions(

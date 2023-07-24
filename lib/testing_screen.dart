@@ -12,11 +12,51 @@ class TestingScreen extends StatefulWidget {
 }
 
 class _TestingScreenState extends State<TestingScreen> with ChangeNotifier {
-  List<ResultMovieModel> movieModel = [];
+  final ScrollController _scrollController = ScrollController();
+
+  // List<ResultMovieModel> movieModel = [];
+  int _page = 1;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _scrollController.addListener(_scrollListener);
+
+    super.initState();
+  }
+
+  void _scrollListener() async {
+    if (_scrollController.offset >=
+            _scrollController.position.maxScrollExtent &&
+        !_scrollController.position.outOfRange) {
+      // 스크롤 끝에 오면
+      if (_page < 2) {
+        _page++;
+        context.read<PopularMovieProvider>().loadMovieList(_page);
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _scrollController.removeListener(_scrollListener);
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    movieModel = context.watch<PopularMovieProvider>().movieList;
+    //final List<ResultMovieModel> movieModel = context.watch<PopularMovieProvider>().movieList;
+    ///watch는 전체 적인 부분, select 은 특정한 부분만 추적 해서 사용. 리빌드를 줄인다!!
+    List<ResultMovieModel> movieModel =
+        context.select<PopularMovieProvider, List<ResultMovieModel>>(
+            (movieProvider) => movieProvider.movieList);
+    int temp =
+    context.select<PopularMovieProvider, int>(
+            (movieProvider) => movieProvider.temp);
+
+    print(movieModel.length);
 
     return Scaffold(
       appBar: AppBar(
@@ -42,6 +82,7 @@ class _TestingScreenState extends State<TestingScreen> with ChangeNotifier {
           Expanded(
               child: movieModel.isNotEmpty
                   ? ListView.separated(
+                      controller: _scrollController,
                       itemBuilder: (BuildContext context, int index) {
                         return Center(
                           child: Container(
@@ -106,8 +147,9 @@ class _TestingScreenState extends State<TestingScreen> with ChangeNotifier {
     );
   }
 
-  void _tapped() async {
-    await Provider.of<PopularMovieProvider>(context, listen: false)
-        .loadMovieList();
+  void _tapped()  {
+    context.read<PopularMovieProvider>().loadMovieList(_page);
+    /*await Provider.of<PopularMovieProvider>(context, listen: false)
+        .loadMovieList(_page);*/
   }
 }
