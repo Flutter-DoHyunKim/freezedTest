@@ -38,7 +38,7 @@ class _TestingScreenState extends State<TestingScreen> {
         setState(() {});
         _loadMovieMethod().then((value) {
           setState(() {
-            _isLoading = true;
+            _isLoading = false;
           });
         });
       }
@@ -101,10 +101,10 @@ class _TestingScreenState extends State<TestingScreen> {
             child: TextButton(
               onPressed: () {
                 if (_theme) {
-                  Get.changeTheme(ThemeData.dark());
+                  Get.changeTheme(ThemeData.light());
                   _theme = false;
                 } else {
-                  Get.changeTheme(ThemeData.light());
+                  Get.changeTheme(ThemeData.dark());
                   _theme = true;
                 }
                 Get.back();
@@ -157,6 +157,8 @@ class _TestingScreenState extends State<TestingScreen> {
       ),
     );
   }
+
+
 
   @override
   Widget build(BuildContext context) {

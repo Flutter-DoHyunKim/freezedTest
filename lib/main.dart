@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MovieRepositoryType repositoryType = PopularMovieService(APIConst.makeDio());
-
+    //controller 여러개 사용할 때는 따로 Mybindings 같은 class로 빼서 method 호출로 사용할 수 있도록 한다.
     return GetMaterialApp(  //get 사용 시 getMaterialApp을 사용
       initialBinding: BindingsBuilder((){Get.put(GetMovieController(repositoryType));}), //미리 처음에 사용할 gextX controller 초기화 시켜놓자.
       title: 'Flutter Demo',

@@ -9,7 +9,7 @@ class GetMovieController extends GetxController{
   final MovieRepositoryType repositoryType;
   GetMovieController(this.repositoryType);
   @override
-  void onInit() { //처음 실행시에
+  void onInit() { //처음 실행 시에
     // TODO: implement onInit
     super.onInit();
   }
