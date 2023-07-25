@@ -22,7 +22,7 @@ class TestBloc extends Bloc<TestEvent, TestState> { //event는 어떤 일이 일
       final page = event.page;
       final MovieModel? result = await repositoryType.getPopularMovie(page); //repository에서 dio 호출 등으로 result 받아옴
 // 상태에 대해 copyWith, 후 emit 으로 방출
-      emit(state.copyWith(status: Status.done, movieModel: result?.results ?? [])); //copyWith로 일부 원하는 내용들을 업데이트를 해준다.
+      emit(state.copyWith(status: Status.done, movieModel: [...state.movieModel??[],...result?.results ?? []])); //copyWith로 일부 원하는 내용들을 업데이트를 해준다.
     } catch (e) {
       // 에러
       emit(state.copyWith(status: Status.error));

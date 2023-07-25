@@ -48,7 +48,7 @@ class _TestingScreenState extends State<TestingScreen> {
   Future<void> _loadMovieMethod() async {
     if (_page < 2) {
       _page++;
-      controller.loadMovieList(_page);
+      context.read<TestBloc>().add(MovieLoadEvent(_page));
     }
   }
 
