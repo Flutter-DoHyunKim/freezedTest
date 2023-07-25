@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:freezed_testing/blocs/dialog_bloc.dart';
+import 'package:freezed_testing/blocs/test_bloc.dart';
 import 'package:freezed_testing/data_source/network/client.dart';
 import 'package:freezed_testing/data_source/network/get_state.dart';
 import 'package:freezed_testing/services/repository.dart';
@@ -46,7 +49,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Center(child: TestingScreen()),
+      home: MultiBlocProvider(providers: [
+        BlocProvider<TestBloc>(create: (BuildContext context) => TestBloc(repositoryType)),
+        BlocProvider<DialogBloc>(create: (BuildContext context) => DialogBloc()),
+      ],
+      child: const TestingScreen()),
     );
   }
 }

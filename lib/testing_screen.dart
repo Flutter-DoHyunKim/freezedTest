@@ -1,5 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_testing/blocs/dialog_bloc.dart';
+import 'package:freezed_testing/blocs/test_bloc.dart';
 import 'package:freezed_testing/data_source/network/get_state.dart';
 import 'package:freezed_testing/models/movie_model.dart';
 import 'package:get/get.dart';
@@ -15,7 +18,6 @@ class _TestingScreenState extends State<TestingScreen> {
   final controller = Get.find<GetMovieController>();
   final ScrollController _scrollController = ScrollController();
   bool _isLoading = false;
-  bool _theme = false;
 
   // List<ResultMovieModel> movieModel = [];
   int _page = 1;
@@ -35,11 +37,9 @@ class _TestingScreenState extends State<TestingScreen> {
       // 스크롤 끝에 오면
       if (!_isLoading) {
         _isLoading = true;
-        setState(() {});
+
         _loadMovieMethod().then((value) {
-          setState(() {
-            _isLoading = false;
-          });
+          _isLoading = false;
         });
       }
     }
@@ -100,12 +100,18 @@ class _TestingScreenState extends State<TestingScreen> {
             ),
             child: TextButton(
               onPressed: () {
-                if (_theme) {
+                /*if (_theme) {
                   Get.changeTheme(ThemeData.light());
                   _theme = false;
                 } else {
                   Get.changeTheme(ThemeData.dark());
                   _theme = true;
+                }*/
+                context.read<TestBloc>().add(ThemeChangedEvent());
+                if (context.read<TestBloc>().state.status2 == Status2.dark) {
+                  Get.changeTheme(ThemeData.light());
+                } else {
+                  Get.changeTheme(ThemeData.dark());
                 }
                 Get.back();
               },
@@ -133,7 +139,8 @@ class _TestingScreenState extends State<TestingScreen> {
             ),
             child: TextButton(
                 onPressed: () async {
-                  controller.loadMovieList(_page);
+                  // controller.loadMovieList(_page);
+                  context.read<TestBloc>().add(MovieLoadEvent(_page));
                   Get.back();
                 },
                 child: const Text(
@@ -158,11 +165,8 @@ class _TestingScreenState extends State<TestingScreen> {
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-    //final List<ResultMovieModel> movieModel = context.watch<PopularMovieProvider>().movieList;
     ///watch는 전체 적인 부분, select 은 특정한 부분만 추적 해서 사용. 리빌드를 줄인다!!
 
     /*   List<ResultMovieModel> movieModel =
@@ -173,6 +177,10 @@ class _TestingScreenState extends State<TestingScreen> {
 
     //  print(movieModel.length);
 
+    return blocC();
+  }
+
+  Scaffold getX() {
     return Scaffold(
       appBar: AppBar(
         title: const Text("TEST Movie API"),
@@ -184,7 +192,9 @@ class _TestingScreenState extends State<TestingScreen> {
             height: 50,
           ),
           InkWell(
-              onTap: _showDialog,
+              onTap: (){
+              //  context.read<DialogBloc>().add(PopDialogEvent());
+              },
               //Get.snackbar('hi','message'); 이렇게 하면 notification 처럼 snackbar 나옴
               child: Container(
                 width: 200,
@@ -264,6 +274,108 @@ class _TestingScreenState extends State<TestingScreen> {
           }),
         ]),
       ),
+    );
+  }
+
+  Scaffold blocC() {
+    final List<ResultMovieModel>? movieModel =
+        context.watch<TestBloc>().state.movieModel;
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("TEST Movie API"),
+      ),
+      body: BlocListener<DialogBloc, DialogState>(
+  listener: (context, state) {
+    // TODO: implement listener
+    if(state.count%2==1)
+  {  _showDialog();}
+  },
+  child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          const SizedBox(
+            height: 50,
+          ),
+          InkWell(
+              onTap: (){
+        context.read<DialogBloc>().add(PopDialogEvent());
+  },
+              //Get.snackbar('hi','message'); 이렇게 하면 notification 처럼 snackbar 나옴
+              child: Container(
+                width: 200,
+                height: 100,
+                color: Colors.blue,
+                child: const Center(child: Text('버튼을 두 번 눌러보세요')),
+              )),
+          const SizedBox(
+            height: 12,
+          ),
+          Expanded(
+              child: movieModel != null
+                  ? ListView.separated(
+                      controller: _scrollController,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Center(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      'https://image.tmdb.org/t/p/original${movieModel[index].backdropPath}'),
+                                  fit: BoxFit.cover,
+                                  filterQuality: FilterQuality.low,
+                                  opacity: 0.5),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                    width: 100,
+                                    child: Text(
+                                      movieModel[index].originalTitle,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w700),
+                                    )),
+                                const Expanded(child: SizedBox()),
+                                Container(
+                                  padding: EdgeInsets.zero,
+                                  margin: EdgeInsets.zero,
+                                  constraints:
+                                      const BoxConstraints(maxWidth: 200),
+                                  height: 300,
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                        'https://image.tmdb.org/t/p/original${movieModel[index].posterPath}',
+                                    fadeInDuration:
+                                        const Duration(milliseconds: 100),
+                                    fadeOutDuration:
+                                        const Duration(milliseconds: 100),
+                                    memCacheHeight: 300,
+                                    memCacheWidth: 300,
+                                    placeholder: (context, url) => const Center(
+                                        child: SizedBox(
+                                            width: 30,
+                                            height: 30,
+                                            child:
+                                                CircularProgressIndicator())),
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(Icons.error),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const SizedBox(
+                          height: 10,
+                        );
+                      },
+                      itemCount: movieModel.length)
+                  : const SizedBox(width: 100, child: Text('empty!!')))
+        ]),
+      ),
+),
     );
   }
 
