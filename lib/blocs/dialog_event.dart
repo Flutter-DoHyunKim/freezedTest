@@ -1,11 +1,7 @@
 part of 'dialog_bloc.dart';
 
-abstract class DialogEvent{
+abstract class DialogEvent {}
 
-}
-
-class PopDialogEvent implements DialogEvent{
+class PopDialogEvent implements DialogEvent {
   PopDialogEvent();
-
-
 }
