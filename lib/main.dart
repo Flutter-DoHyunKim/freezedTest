@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_testing/blocs/dialog_bloc.dart';
 import 'package:freezed_testing/blocs/movie_load_bloc/test_bloc.dart';
 import 'package:freezed_testing/data_source/network/client.dart';
@@ -11,7 +12,7 @@ import 'package:get/get.dart';
 void main() async{
   await dotenv.load(fileName: 'lib/assets/config/.env');
 
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

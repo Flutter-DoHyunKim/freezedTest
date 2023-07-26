@@ -1,20 +1,24 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_testing/blocs/dialog_bloc.dart';
 import 'package:freezed_testing/blocs/movie_load_bloc/test_bloc.dart';
 import 'package:freezed_testing/data_source/network/get_state.dart';
 import 'package:freezed_testing/models/movie_model.dart';
+import 'package:freezed_testing/provider/count_provider.dart';
+import 'package:freezed_testing/provider/get_movie_provider.dart';
+import 'package:freezed_testing/provider/scroll_provider.dart';
 import 'package:get/get.dart';
 
-class TestingScreen extends StatefulWidget {
+class TestingScreen extends ConsumerStatefulWidget {
   const TestingScreen({super.key});
 
   @override
-  State<TestingScreen> createState() => _TestingScreenState();
+  ConsumerState<TestingScreen> createState() => _TestingScreenState();
 }
 
-class _TestingScreenState extends State<TestingScreen> {
+class _TestingScreenState extends ConsumerState<TestingScreen> {
   final controller = Get.find<GetMovieController>();
   final ScrollController _scrollController = ScrollController();
 
@@ -30,6 +34,12 @@ class _TestingScreenState extends State<TestingScreen> {
   }
 
   void _scrollListener() async {
+
+    if(ref.watch(scrollProvider)){
+      _scrollController.animateTo(0, duration: const Duration(microseconds: 300), curve: Curves.easeInOut);
+      ref.watch(scrollProvider.notifier).state=false;
+    }
+
     if (_scrollController.offset >=
             _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange) {
@@ -51,7 +61,8 @@ class _TestingScreenState extends State<TestingScreen> {
   Future<void> _loadMovieMethod() async {
     if (_page < 2) {
       _page++;
-      context.read<TestBloc>().add(MovieLoadEvent(_page)); //Bloc으로 변경
+      // context.read<TestBloc>().add(MovieLoadEvent(_page)); //Bloc으로 변경
+      ref.watch(getMovieListProvider.notifier).getMovieList(_page);
     }
   }
 
@@ -138,7 +149,9 @@ class _TestingScreenState extends State<TestingScreen> {
             child: TextButton(
                 onPressed: () async {
                   // controller.loadMovieList(_page);
-                  context.read<TestBloc>().add(MovieLoadEvent(_page));
+                  ref.watch(getMovieListProvider.notifier).getMovieList(_page);
+
+                  //context.read<TestBloc>().add(MovieLoadEvent(_page));
                   Get.back();
                 },
                 child: const Text(
@@ -276,8 +289,11 @@ class _TestingScreenState extends State<TestingScreen> {
   }
 
   Scaffold blocC() {
-    final List<ResultMovieModel>? movieModel =
-        context.watch<TestBloc>().state.movieModel;
+    /* final List<ResultMovieModel>? movieModel =
+        context.watch<TestBloc>().state.movieModel;*/
+
+    final List<ResultMovieModel>? movieModel = ref.watch(getMovieListProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("TEST Movie API"),
@@ -296,17 +312,40 @@ class _TestingScreenState extends State<TestingScreen> {
             const SizedBox(
               height: 50,
             ),
-            InkWell(
-                onTap: () {
-                  context.read<DialogBloc>().add(PopDialogEvent());
-                },
-                //Get.snackbar('hi','message'); 이렇게 하면 notification 처럼 snackbar 나옴
-                child: Container(
-                  width: 200,
-                  height: 100,
-                  color: Colors.blue,
-                  child: const Center(child: Text('버튼을 두 번 눌러보세요')),
-                )),
+            Row(
+              children: [
+                InkWell(
+                    onTap: () {
+                      context.read<DialogBloc>().add(PopDialogEvent());
+                    },
+                    //Get.snackbar('hi','message'); 이렇게 하면 notification 처럼 snackbar 나옴
+                    child: Container(
+                      width: 200,
+                      height: 100,
+                      color: Colors.blue,
+                      child: const Center(child: Text('버튼을 두 번 눌러보세요')),
+                    )),
+                const SizedBox(width: 20,),
+                Column(
+                  children: [
+                     InkWell(onTap:(){
+                       ref.watch(scrollProvider.notifier).state=true;
+                     },child: const Icon(Icons.arrow_circle_up_outlined)),
+                    Text(ref.watch(CountProvider).toString()),
+                    InkWell(
+                        onTap: () {
+                          ref.watch(CountProvider.notifier).state=ref.watch(CountProvider)*2;
+                        },
+                        child: Container(
+                          width: 100,
+                          height: 50,
+                          color: Colors.red,
+                          child: const Center(child: Text("2^k")),
+                        ))
+                  ],
+                )
+              ],
+            ),
             const SizedBox(
               height: 12,
             ),
