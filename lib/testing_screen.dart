@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_testing/blocs/dialog_bloc.dart';
-import 'package:freezed_testing/blocs/test_bloc.dart';
+import 'package:freezed_testing/blocs/movie_load_bloc/test_bloc.dart';
 import 'package:freezed_testing/data_source/network/get_state.dart';
 import 'package:freezed_testing/models/movie_model.dart';
 import 'package:get/get.dart';
