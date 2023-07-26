@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:freezed_testing/models/movie_model.dart';
 import 'package:freezed_testing/services/repository.dart';
+import 'package:get/get.dart';
 
 part 'test_event.dart';
 
@@ -44,8 +46,10 @@ class TestBloc extends Bloc<TestEvent, TestState> {
     try {
       if (state.status2 == Status2.dark) {
         emit(state.copyWith(status2: Status2.light));
+        Get.changeTheme(ThemeData.light());
       } else {
         emit(state.copyWith(status2: Status2.dark));
+        Get.changeTheme(ThemeData.dark());
       }
     } catch (e) {
       // 에러

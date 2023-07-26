@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MultiBlocProvider(providers: [
+      home: MultiBlocProvider(providers: [ //provider 와 사용 하는 방법이 비슷 하다
         BlocProvider<TestBloc>(create: (BuildContext context) => TestBloc(repositoryType)),
         BlocProvider<DialogBloc>(create: (BuildContext context) => DialogBloc()),
       ],

@@ -17,8 +17,8 @@ class TestingScreen extends StatefulWidget {
 class _TestingScreenState extends State<TestingScreen> {
   final controller = Get.find<GetMovieController>();
   final ScrollController _scrollController = ScrollController();
-  bool _isLoading = false;
 
+  bool _isLoading = false;
   int _page = 1;
 
   @override
@@ -36,10 +36,14 @@ class _TestingScreenState extends State<TestingScreen> {
       // 스크롤 끝에 오면
       if (!_isLoading) {
         _isLoading = true;
-
-        _loadMovieMethod().then((value) {
+        try {
+          _loadMovieMethod().then((value) {
+            _isLoading = false;
+          });
+        } catch (e) {
+          print(e);
           _isLoading = false;
-        });
+        }
       }
     }
   }
@@ -69,7 +73,7 @@ class _TestingScreenState extends State<TestingScreen> {
         contentPadding: const EdgeInsets.only(bottom: 40),
         actionsPadding: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
         title: const Text(
-          "API 호출하기",
+          "API 호출 하기",
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Color(0xff1f1f1f),
@@ -81,7 +85,7 @@ class _TestingScreenState extends State<TestingScreen> {
         content: const Opacity(
           opacity: 0.70,
           child: Text(
-            "버튼을 클릭하세요",
+            "버튼을 클릭 하세요",
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Color(0xff1f1f1f),
@@ -107,11 +111,6 @@ class _TestingScreenState extends State<TestingScreen> {
                   _theme = true;
                 }*/
                 context.read<TestBloc>().add(ThemeChangedEvent());
-                if (context.read<TestBloc>().state.status2 == Status2.dark) {
-                  Get.changeTheme(ThemeData.light());
-                } else {
-                  Get.changeTheme(ThemeData.dark());
-                }
                 Get.back();
               },
               child: const Text(
