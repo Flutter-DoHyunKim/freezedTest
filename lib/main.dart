@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 void main() async{
   await dotenv.load(fileName: 'lib/assets/config/.env');
 
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: MyApp())); //providerscope를 감으면 해당 기준 widget부터 scope이 생긴다. 여기서 한다는 것은 전체 widget tree 에 대한 것!
 }
 
 class MyApp extends StatelessWidget {

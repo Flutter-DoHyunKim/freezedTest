@@ -331,10 +331,10 @@ class _TestingScreenState extends ConsumerState<TestingScreen> {
                      InkWell(onTap:(){
                        ref.watch(scrollProvider.notifier).state=true;
                      },child: const Icon(Icons.arrow_circle_up_outlined)),
-                    Text(ref.watch(CountProvider).toString()),
+                    Text(ref.watch(countProvider).toString()),
                     InkWell(
                         onTap: () {
-                          ref.watch(CountProvider.notifier).state=ref.watch(CountProvider)*2;
+                          ref.watch(countProvider.notifier).state=ref.watch(countProvider)*2;
                         },
                         child: Container(
                           width: 100,
