@@ -34,10 +34,11 @@ class _TestingScreenState extends ConsumerState<TestingScreen> {
   }
 
   void _scrollListener() async {
-
-    if(ref.watch(scrollProvider)){
-      _scrollController.animateTo(0, duration: const Duration(microseconds: 300), curve: Curves.easeInOut);
-      ref.watch(scrollProvider.notifier).state=false;
+    if (ref.watch(scrollProvider)) {
+      //scrollProvider 에서 ref를 통해 계속 보고 있다가 바뀌면 작동(false->true 로 바뀔때)
+      _scrollController.animateTo(0,
+          duration: const Duration(microseconds: 300), curve: Curves.easeInOut);
+      ref.watch(scrollProvider.notifier).state = false;
     }
 
     if (_scrollController.offset >=
@@ -149,7 +150,9 @@ class _TestingScreenState extends ConsumerState<TestingScreen> {
             child: TextButton(
                 onPressed: () async {
                   // controller.loadMovieList(_page);
-                  ref.watch(getMovieListProvider.notifier).getMovieList(_page);
+                  ref
+                      .watch(getMovieListProvider.notifier)
+                      .getMovieList(_page); //.notifier 로 상태 관리 필요한 값 update
 
                   //context.read<TestBloc>().add(MovieLoadEvent(_page));
                   Get.back();
@@ -188,7 +191,11 @@ class _TestingScreenState extends ConsumerState<TestingScreen> {
 
     //  print(movieModel.length);
 
-    return blocC();
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          Size size=MediaQuery.of(context).size;
+      return blocC(size);
+    });
   }
 
   Scaffold getX() {
@@ -288,10 +295,9 @@ class _TestingScreenState extends ConsumerState<TestingScreen> {
     );
   }
 
-  Scaffold blocC() {
+  Scaffold blocC(Size size) {
     /* final List<ResultMovieModel>? movieModel =
         context.watch<TestBloc>().state.movieModel;*/
-
     final List<ResultMovieModel>? movieModel = ref.watch(getMovieListProvider);
 
     return Scaffold(
@@ -320,25 +326,31 @@ class _TestingScreenState extends ConsumerState<TestingScreen> {
                     },
                     //Get.snackbar('hi','message'); 이렇게 하면 notification 처럼 snackbar 나옴
                     child: Container(
-                      width: 200,
-                      height: 100,
+                      width: size.width/2,
+                      height: size.height/10,
                       color: Colors.blue,
                       child: const Center(child: Text('버튼을 두 번 눌러보세요')),
                     )),
-                const SizedBox(width: 20,),
+                const SizedBox(
+                  width: 20,
+                ),
                 Column(
                   children: [
-                     InkWell(onTap:(){
-                       ref.watch(scrollProvider.notifier).state=true;
-                     },child: const Icon(Icons.arrow_circle_up_outlined)),
+                    InkWell(
+                        onTap: () {
+                          ref.watch(scrollProvider.notifier).state = true;
+                        },
+                        child: const Icon(Icons.arrow_circle_up_outlined)),
                     Text(ref.watch(countProvider).toString()),
                     InkWell(
                         onTap: () {
-                          ref.watch(countProvider.notifier).state=ref.watch(countProvider)*2;
+                          ref.watch(countProvider.notifier).state =
+                              ref.watch(countProvider) * 2;
                         },
                         child: Container(
-                          width: 100,
-                          height: 50,
+                          width: size.width/4,
+
+                          height: size.height/10,
                           color: Colors.red,
                           child: const Center(child: Text("2^k")),
                         ))
