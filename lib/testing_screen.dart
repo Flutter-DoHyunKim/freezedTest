@@ -122,7 +122,7 @@ class _TestingScreenState extends ConsumerState<TestingScreen> {
                   Get.changeTheme(ThemeData.dark());
                   _theme = true;
                 }*/
-                context.read<TestBloc>().add(ThemeChangedEvent());
+                context.read<TestBloc>().add(ThemeChangedEvent()); //bloc 사용으로 theme 변경하기
                 Get.back();
               },
               child: const Text(
@@ -151,7 +151,7 @@ class _TestingScreenState extends ConsumerState<TestingScreen> {
                 onPressed: () async {
                   // controller.loadMovieList(_page);
                   ref
-                      .watch(getMovieListProvider.notifier)
+                      .watch(getMovieListProvider.notifier) //riverpod
                       .getMovieList(_page); //.notifier 로 상태 관리 필요한 값 update
 
                   //context.read<TestBloc>().add(MovieLoadEvent(_page));
