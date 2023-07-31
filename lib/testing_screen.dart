@@ -4,12 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_testing/blocs/dialog_bloc.dart';
 import 'package:freezed_testing/blocs/movie_load_bloc/test_bloc.dart';
+import 'package:freezed_testing/data_source/local/database/database.dart';
 import 'package:freezed_testing/data_source/network/get_state.dart';
 import 'package:freezed_testing/models/movie_model.dart';
 import 'package:freezed_testing/provider/count_provider.dart';
 import 'package:freezed_testing/provider/get_movie_provider.dart';
 import 'package:freezed_testing/provider/scroll_provider.dart';
+import 'package:freezed_testing/provider/todo_dao_provider.dart';
 import 'package:get/get.dart';
+import 'package:drift/drift.dart' as drift;
+
+import 'data_source/local/mappers/movie_mapper.dart';
 
 class TestingScreen extends ConsumerStatefulWidget {
   const TestingScreen({super.key});
@@ -343,9 +348,25 @@ class _TestingScreenState extends ConsumerState<TestingScreen> {
                         child: const Icon(Icons.arrow_circle_up_outlined)),
                     Text(ref.watch(countProvider).toString()),
                     InkWell(
-                        onTap: () {
+                        onTap: () async{
                           ref.watch(countProvider.notifier).state =
                               ref.watch(countProvider) * 2;
+
+
+
+                          //drift
+                          print(movieModel![0]);
+                          TodosCompanion? todosCompanion = movieModel[0].toEntity();
+                          print(todosCompanion!.voteAverage);
+                          ref.watch(todoDaoProvider).addTodos(todosCompanion);
+                          List<Todo> temp= await ref.watch(todoDaoProvider).allTodoEntries();
+                         // print(temp[0].backdropPath);
+                          ResultMovieModel temp2=temp[0].toModel();
+
+
+                        //  print(temp[0]);
+
+
                         },
                         child: Container(
                           width: size.width/4,
