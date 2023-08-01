@@ -22,6 +22,7 @@ class FavoriteMovies extends Table {
   BoolColumn get video => boolean()();
   RealColumn get voteAverage => real()();
   IntColumn get voteCount => integer()();
+  IntColumn get temp => integer()(); //v2
   //TextColumn get content => text().named('body')();
 }
 /*

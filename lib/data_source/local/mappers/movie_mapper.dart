@@ -20,6 +20,7 @@ extension ModelToEntityMapper on ResultMovieModel {
       video: video,
       voteAverage: voteAverage,
       voteCount: voteCount,
+      temp:0
     );
   }
 }

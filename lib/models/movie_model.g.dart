@@ -22,17 +22,14 @@ Map<String, dynamic> _$$_MovieModelToJson(_$_MovieModel instance) =>
 
 _$_ResultMovieModel _$$_ResultMovieModelFromJson(Map<String, dynamic> json) =>
     _$_ResultMovieModel(
-
       adult: json['adult'] as bool,
-
-
+      backdropPath: json['backdrop_path'] as String,
+      genreIds:
+          (json['genre_ids'] as List<dynamic>).map((e) => e as int).toList(),
       id: json['id'] as int,
       originalLanguage: json['original_language'] as String,
-          genreIds:
-          (json['genre_ids'] as List<dynamic>).map((e) => e as int).toList(),
       originalTitle: json['original_title'] as String,
       overview: json['overview'] as String,
-          backdropPath: json['backdrop_path'] as String,
       popularity: (json['popularity'] as num).toDouble(),
       posterPath: json['poster_path'] as String,
       releaseDate: json['release_date'] as String,

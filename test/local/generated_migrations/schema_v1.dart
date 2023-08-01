@@ -1,16 +1,14 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
-
-part of 'database.dart';
-
+// GENERATED CODE, DO NOT EDIT BY HAND.
 // ignore_for_file: type=lint
-class $FavoriteMoviesTable extends FavoriteMovies
-    with TableInfo<$FavoriteMoviesTable, FavoriteMovie> {
+//@dart=2.12
+import 'package:drift/drift.dart';
+
+class FavoriteMovies extends Table
+    with TableInfo<FavoriteMovies, FavoriteMoviesData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $FavoriteMoviesTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
+  FavoriteMovies(this.attachedDatabase, [this._alias]);
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
       hasAutoIncrement: true,
@@ -18,97 +16,50 @@ class $FavoriteMoviesTable extends FavoriteMovies
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _adultMeta = const VerificationMeta('adult');
-  @override
-  late final GeneratedColumn<bool> adult =
-      GeneratedColumn<bool>('adult', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("adult" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
-  static const VerificationMeta _originalTitleMeta =
-      const VerificationMeta('originalTitle');
-  @override
+  late final GeneratedColumn<bool> adult = GeneratedColumn<bool>(
+      'adult', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("adult" IN (0, 1))'));
   late final GeneratedColumn<String> originalTitle = GeneratedColumn<String>(
       'original_title', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _backdropPathMeta =
-      const VerificationMeta('backdropPath');
-  @override
   late final GeneratedColumn<String> backdropPath = GeneratedColumn<String>(
       'backdrop_path', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _genreIdsMeta =
-      const VerificationMeta('genreIds');
-  @override
   late final GeneratedColumn<String> genreIds = GeneratedColumn<String>(
       'genre_ids', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _originalLanguageMeta =
-      const VerificationMeta('originalLanguage');
-  @override
   late final GeneratedColumn<String> originalLanguage = GeneratedColumn<String>(
       'original_language', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _overviewMeta =
-      const VerificationMeta('overview');
-  @override
   late final GeneratedColumn<String> overview = GeneratedColumn<String>(
       'overview', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _popularityMeta =
-      const VerificationMeta('popularity');
-  @override
   late final GeneratedColumn<double> popularity = GeneratedColumn<double>(
       'popularity', aliasedName, false,
       type: DriftSqlType.double, requiredDuringInsert: true);
-  static const VerificationMeta _posterPathMeta =
-      const VerificationMeta('posterPath');
-  @override
   late final GeneratedColumn<String> posterPath = GeneratedColumn<String>(
       'poster_path', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _releaseDateMeta =
-      const VerificationMeta('releaseDate');
-  @override
   late final GeneratedColumn<String> releaseDate = GeneratedColumn<String>(
       'release_date', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _titleMeta = const VerificationMeta('title');
-  @override
   late final GeneratedColumn<String> title = GeneratedColumn<String>(
       'title', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _videoMeta = const VerificationMeta('video');
-  @override
-  late final GeneratedColumn<bool> video =
-      GeneratedColumn<bool>('video', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("video" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
-  static const VerificationMeta _voteAverageMeta =
-      const VerificationMeta('voteAverage');
-  @override
+  late final GeneratedColumn<bool> video = GeneratedColumn<bool>(
+      'video', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("video" IN (0, 1))'));
   late final GeneratedColumn<double> voteAverage = GeneratedColumn<double>(
       'vote_average', aliasedName, false,
       type: DriftSqlType.double, requiredDuringInsert: true);
-  static const VerificationMeta _voteCountMeta =
-      const VerificationMeta('voteCount');
-  @override
   late final GeneratedColumn<int> voteCount = GeneratedColumn<int>(
       'vote_count', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _tempMeta = const VerificationMeta('temp');
-  @override
-  late final GeneratedColumn<int> temp = GeneratedColumn<int>(
-      'temp', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
@@ -125,128 +76,18 @@ class $FavoriteMoviesTable extends FavoriteMovies
         title,
         video,
         voteAverage,
-        voteCount,
-        temp
+        voteCount
       ];
   @override
   String get aliasedName => _alias ?? 'favorite_movies';
   @override
   String get actualTableName => 'favorite_movies';
   @override
-  VerificationContext validateIntegrity(Insertable<FavoriteMovie> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('adult')) {
-      context.handle(
-          _adultMeta, adult.isAcceptableOrUnknown(data['adult']!, _adultMeta));
-    } else if (isInserting) {
-      context.missing(_adultMeta);
-    }
-    if (data.containsKey('original_title')) {
-      context.handle(
-          _originalTitleMeta,
-          originalTitle.isAcceptableOrUnknown(
-              data['original_title']!, _originalTitleMeta));
-    } else if (isInserting) {
-      context.missing(_originalTitleMeta);
-    }
-    if (data.containsKey('backdrop_path')) {
-      context.handle(
-          _backdropPathMeta,
-          backdropPath.isAcceptableOrUnknown(
-              data['backdrop_path']!, _backdropPathMeta));
-    } else if (isInserting) {
-      context.missing(_backdropPathMeta);
-    }
-    if (data.containsKey('genre_ids')) {
-      context.handle(_genreIdsMeta,
-          genreIds.isAcceptableOrUnknown(data['genre_ids']!, _genreIdsMeta));
-    } else if (isInserting) {
-      context.missing(_genreIdsMeta);
-    }
-    if (data.containsKey('original_language')) {
-      context.handle(
-          _originalLanguageMeta,
-          originalLanguage.isAcceptableOrUnknown(
-              data['original_language']!, _originalLanguageMeta));
-    } else if (isInserting) {
-      context.missing(_originalLanguageMeta);
-    }
-    if (data.containsKey('overview')) {
-      context.handle(_overviewMeta,
-          overview.isAcceptableOrUnknown(data['overview']!, _overviewMeta));
-    } else if (isInserting) {
-      context.missing(_overviewMeta);
-    }
-    if (data.containsKey('popularity')) {
-      context.handle(
-          _popularityMeta,
-          popularity.isAcceptableOrUnknown(
-              data['popularity']!, _popularityMeta));
-    } else if (isInserting) {
-      context.missing(_popularityMeta);
-    }
-    if (data.containsKey('poster_path')) {
-      context.handle(
-          _posterPathMeta,
-          posterPath.isAcceptableOrUnknown(
-              data['poster_path']!, _posterPathMeta));
-    } else if (isInserting) {
-      context.missing(_posterPathMeta);
-    }
-    if (data.containsKey('release_date')) {
-      context.handle(
-          _releaseDateMeta,
-          releaseDate.isAcceptableOrUnknown(
-              data['release_date']!, _releaseDateMeta));
-    } else if (isInserting) {
-      context.missing(_releaseDateMeta);
-    }
-    if (data.containsKey('title')) {
-      context.handle(
-          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
-    } else if (isInserting) {
-      context.missing(_titleMeta);
-    }
-    if (data.containsKey('video')) {
-      context.handle(
-          _videoMeta, video.isAcceptableOrUnknown(data['video']!, _videoMeta));
-    } else if (isInserting) {
-      context.missing(_videoMeta);
-    }
-    if (data.containsKey('vote_average')) {
-      context.handle(
-          _voteAverageMeta,
-          voteAverage.isAcceptableOrUnknown(
-              data['vote_average']!, _voteAverageMeta));
-    } else if (isInserting) {
-      context.missing(_voteAverageMeta);
-    }
-    if (data.containsKey('vote_count')) {
-      context.handle(_voteCountMeta,
-          voteCount.isAcceptableOrUnknown(data['vote_count']!, _voteCountMeta));
-    } else if (isInserting) {
-      context.missing(_voteCountMeta);
-    }
-    if (data.containsKey('temp')) {
-      context.handle(
-          _tempMeta, temp.isAcceptableOrUnknown(data['temp']!, _tempMeta));
-    } else if (isInserting) {
-      context.missing(_tempMeta);
-    }
-    return context;
-  }
-
-  @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  FavoriteMovie map(Map<String, dynamic> data, {String? tablePrefix}) {
+  FavoriteMoviesData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return FavoriteMovie(
+    return FavoriteMoviesData(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       adult: attachedDatabase.typeMapping
@@ -275,18 +116,17 @@ class $FavoriteMoviesTable extends FavoriteMovies
           .read(DriftSqlType.double, data['${effectivePrefix}vote_average'])!,
       voteCount: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}vote_count'])!,
-      temp: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}temp'])!,
     );
   }
 
   @override
-  $FavoriteMoviesTable createAlias(String alias) {
-    return $FavoriteMoviesTable(attachedDatabase, alias);
+  FavoriteMovies createAlias(String alias) {
+    return FavoriteMovies(attachedDatabase, alias);
   }
 }
 
-class FavoriteMovie extends DataClass implements Insertable<FavoriteMovie> {
+class FavoriteMoviesData extends DataClass
+    implements Insertable<FavoriteMoviesData> {
   final int id;
   final bool adult;
   final String originalTitle;
@@ -301,8 +141,7 @@ class FavoriteMovie extends DataClass implements Insertable<FavoriteMovie> {
   final bool video;
   final double voteAverage;
   final int voteCount;
-  final int temp;
-  const FavoriteMovie(
+  const FavoriteMoviesData(
       {required this.id,
       required this.adult,
       required this.originalTitle,
@@ -316,8 +155,7 @@ class FavoriteMovie extends DataClass implements Insertable<FavoriteMovie> {
       required this.title,
       required this.video,
       required this.voteAverage,
-      required this.voteCount,
-      required this.temp});
+      required this.voteCount});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -335,7 +173,6 @@ class FavoriteMovie extends DataClass implements Insertable<FavoriteMovie> {
     map['video'] = Variable<bool>(video);
     map['vote_average'] = Variable<double>(voteAverage);
     map['vote_count'] = Variable<int>(voteCount);
-    map['temp'] = Variable<int>(temp);
     return map;
   }
 
@@ -355,14 +192,13 @@ class FavoriteMovie extends DataClass implements Insertable<FavoriteMovie> {
       video: Value(video),
       voteAverage: Value(voteAverage),
       voteCount: Value(voteCount),
-      temp: Value(temp),
     );
   }
 
-  factory FavoriteMovie.fromJson(Map<String, dynamic> json,
+  factory FavoriteMoviesData.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return FavoriteMovie(
+    return FavoriteMoviesData(
       id: serializer.fromJson<int>(json['id']),
       adult: serializer.fromJson<bool>(json['adult']),
       originalTitle: serializer.fromJson<String>(json['originalTitle']),
@@ -377,7 +213,6 @@ class FavoriteMovie extends DataClass implements Insertable<FavoriteMovie> {
       video: serializer.fromJson<bool>(json['video']),
       voteAverage: serializer.fromJson<double>(json['voteAverage']),
       voteCount: serializer.fromJson<int>(json['voteCount']),
-      temp: serializer.fromJson<int>(json['temp']),
     );
   }
   @override
@@ -398,11 +233,10 @@ class FavoriteMovie extends DataClass implements Insertable<FavoriteMovie> {
       'video': serializer.toJson<bool>(video),
       'voteAverage': serializer.toJson<double>(voteAverage),
       'voteCount': serializer.toJson<int>(voteCount),
-      'temp': serializer.toJson<int>(temp),
     };
   }
 
-  FavoriteMovie copyWith(
+  FavoriteMoviesData copyWith(
           {int? id,
           bool? adult,
           String? originalTitle,
@@ -416,9 +250,8 @@ class FavoriteMovie extends DataClass implements Insertable<FavoriteMovie> {
           String? title,
           bool? video,
           double? voteAverage,
-          int? voteCount,
-          int? temp}) =>
-      FavoriteMovie(
+          int? voteCount}) =>
+      FavoriteMoviesData(
         id: id ?? this.id,
         adult: adult ?? this.adult,
         originalTitle: originalTitle ?? this.originalTitle,
@@ -433,11 +266,10 @@ class FavoriteMovie extends DataClass implements Insertable<FavoriteMovie> {
         video: video ?? this.video,
         voteAverage: voteAverage ?? this.voteAverage,
         voteCount: voteCount ?? this.voteCount,
-        temp: temp ?? this.temp,
       );
   @override
   String toString() {
-    return (StringBuffer('FavoriteMovie(')
+    return (StringBuffer('FavoriteMoviesData(')
           ..write('id: $id, ')
           ..write('adult: $adult, ')
           ..write('originalTitle: $originalTitle, ')
@@ -451,8 +283,7 @@ class FavoriteMovie extends DataClass implements Insertable<FavoriteMovie> {
           ..write('title: $title, ')
           ..write('video: $video, ')
           ..write('voteAverage: $voteAverage, ')
-          ..write('voteCount: $voteCount, ')
-          ..write('temp: $temp')
+          ..write('voteCount: $voteCount')
           ..write(')'))
         .toString();
   }
@@ -472,12 +303,11 @@ class FavoriteMovie extends DataClass implements Insertable<FavoriteMovie> {
       title,
       video,
       voteAverage,
-      voteCount,
-      temp);
+      voteCount);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is FavoriteMovie &&
+      (other is FavoriteMoviesData &&
           other.id == this.id &&
           other.adult == this.adult &&
           other.originalTitle == this.originalTitle &&
@@ -491,11 +321,10 @@ class FavoriteMovie extends DataClass implements Insertable<FavoriteMovie> {
           other.title == this.title &&
           other.video == this.video &&
           other.voteAverage == this.voteAverage &&
-          other.voteCount == this.voteCount &&
-          other.temp == this.temp);
+          other.voteCount == this.voteCount);
 }
 
-class FavoriteMoviesCompanion extends UpdateCompanion<FavoriteMovie> {
+class FavoriteMoviesCompanion extends UpdateCompanion<FavoriteMoviesData> {
   final Value<int> id;
   final Value<bool> adult;
   final Value<String> originalTitle;
@@ -510,7 +339,6 @@ class FavoriteMoviesCompanion extends UpdateCompanion<FavoriteMovie> {
   final Value<bool> video;
   final Value<double> voteAverage;
   final Value<int> voteCount;
-  final Value<int> temp;
   const FavoriteMoviesCompanion({
     this.id = const Value.absent(),
     this.adult = const Value.absent(),
@@ -526,7 +354,6 @@ class FavoriteMoviesCompanion extends UpdateCompanion<FavoriteMovie> {
     this.video = const Value.absent(),
     this.voteAverage = const Value.absent(),
     this.voteCount = const Value.absent(),
-    this.temp = const Value.absent(),
   });
   FavoriteMoviesCompanion.insert({
     this.id = const Value.absent(),
@@ -543,7 +370,6 @@ class FavoriteMoviesCompanion extends UpdateCompanion<FavoriteMovie> {
     required bool video,
     required double voteAverage,
     required int voteCount,
-    required int temp,
   })  : adult = Value(adult),
         originalTitle = Value(originalTitle),
         backdropPath = Value(backdropPath),
@@ -556,9 +382,8 @@ class FavoriteMoviesCompanion extends UpdateCompanion<FavoriteMovie> {
         title = Value(title),
         video = Value(video),
         voteAverage = Value(voteAverage),
-        voteCount = Value(voteCount),
-        temp = Value(temp);
-  static Insertable<FavoriteMovie> custom({
+        voteCount = Value(voteCount);
+  static Insertable<FavoriteMoviesData> custom({
     Expression<int>? id,
     Expression<bool>? adult,
     Expression<String>? originalTitle,
@@ -573,7 +398,6 @@ class FavoriteMoviesCompanion extends UpdateCompanion<FavoriteMovie> {
     Expression<bool>? video,
     Expression<double>? voteAverage,
     Expression<int>? voteCount,
-    Expression<int>? temp,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -590,7 +414,6 @@ class FavoriteMoviesCompanion extends UpdateCompanion<FavoriteMovie> {
       if (video != null) 'video': video,
       if (voteAverage != null) 'vote_average': voteAverage,
       if (voteCount != null) 'vote_count': voteCount,
-      if (temp != null) 'temp': temp,
     });
   }
 
@@ -608,8 +431,7 @@ class FavoriteMoviesCompanion extends UpdateCompanion<FavoriteMovie> {
       Value<String>? title,
       Value<bool>? video,
       Value<double>? voteAverage,
-      Value<int>? voteCount,
-      Value<int>? temp}) {
+      Value<int>? voteCount}) {
     return FavoriteMoviesCompanion(
       id: id ?? this.id,
       adult: adult ?? this.adult,
@@ -625,7 +447,6 @@ class FavoriteMoviesCompanion extends UpdateCompanion<FavoriteMovie> {
       video: video ?? this.video,
       voteAverage: voteAverage ?? this.voteAverage,
       voteCount: voteCount ?? this.voteCount,
-      temp: temp ?? this.temp,
     );
   }
 
@@ -674,9 +495,6 @@ class FavoriteMoviesCompanion extends UpdateCompanion<FavoriteMovie> {
     if (voteCount.present) {
       map['vote_count'] = Variable<int>(voteCount.value);
     }
-    if (temp.present) {
-      map['temp'] = Variable<int>(temp.value);
-    }
     return map;
   }
 
@@ -696,19 +514,20 @@ class FavoriteMoviesCompanion extends UpdateCompanion<FavoriteMovie> {
           ..write('title: $title, ')
           ..write('video: $video, ')
           ..write('voteAverage: $voteAverage, ')
-          ..write('voteCount: $voteCount, ')
-          ..write('temp: $temp')
+          ..write('voteCount: $voteCount')
           ..write(')'))
         .toString();
   }
 }
 
-abstract class _$ExampleDatabase extends GeneratedDatabase {
-  _$ExampleDatabase(QueryExecutor e) : super(e);
-  late final $FavoriteMoviesTable favoriteMovies = $FavoriteMoviesTable(this);
+class DatabaseAtV1 extends GeneratedDatabase {
+  DatabaseAtV1(QueryExecutor e) : super(e);
+  late final FavoriteMovies favoriteMovies = FavoriteMovies(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [favoriteMovies];
+  @override
+  int get schemaVersion => 1;
 }
