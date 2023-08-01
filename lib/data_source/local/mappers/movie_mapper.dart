@@ -3,14 +3,14 @@ import 'package:freezed_testing/data_source/local/database/database.dart';
 import 'package:freezed_testing/models/movie_model.dart';
 
 extension ModelToEntityMapper on ResultMovieModel {
-  TodosCompanion? toEntity() {
+  FavoriteMoviesCompanion toEntity() {
 
-    return TodosCompanion.insert(
+    return FavoriteMoviesCompanion.insert(
       adult: adult,
       originalTitle: originalTitle,
       backdropPath: backdropPath,
       genreIds: genreIds.toString(),
-      id: Value(id),
+      id:  const Value(1),
       originalLanguage: originalLanguage,
       overview: overview,
       popularity: popularity,
@@ -24,26 +24,13 @@ extension ModelToEntityMapper on ResultMovieModel {
   }
 }
 
-extension EntityToModelMapper on Todo {
+extension EntityToModelMapper on FavoriteMovie {
   ResultMovieModel toModel() {
-    print(backdropPath.runtimeType);
-    print(adult);
-    print([genreIds].runtimeType);
-    print(id.runtimeType);
-    print(originalLanguage.runtimeType);
-    print(originalTitle);
-    print(overview);
-    print(popularity);
-    print(posterPath);
-    print(releaseDate);
-    print(title);
-    print(video);
-    print(voteAverage);
-    print(voteCount);
+
 
     return ResultMovieModel.fromJson({
       'adult': adult,
-      'backdrop_path': '123',
+      'backdrop_path': backdropPath,
       'genre_ids': [1,2],
       'id': id,
       'original_language': originalLanguage,

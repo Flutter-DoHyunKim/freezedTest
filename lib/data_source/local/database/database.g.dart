@@ -3,11 +3,12 @@
 part of 'database.dart';
 
 // ignore_for_file: type=lint
-class $TodosTable extends Todos with TableInfo<$TodosTable, Todo> {
+class $FavoriteMoviesTable extends FavoriteMovies
+    with TableInfo<$FavoriteMoviesTable, FavoriteMovie> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $TodosTable(this.attachedDatabase, [this._alias]);
+  $FavoriteMoviesTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -122,11 +123,11 @@ class $TodosTable extends Todos with TableInfo<$TodosTable, Todo> {
         voteCount
       ];
   @override
-  String get aliasedName => _alias ?? 'todos';
+  String get aliasedName => _alias ?? 'favorite_movies';
   @override
-  String get actualTableName => 'todos';
+  String get actualTableName => 'favorite_movies';
   @override
-  VerificationContext validateIntegrity(Insertable<Todo> instance,
+  VerificationContext validateIntegrity(Insertable<FavoriteMovie> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -231,9 +232,9 @@ class $TodosTable extends Todos with TableInfo<$TodosTable, Todo> {
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  Todo map(Map<String, dynamic> data, {String? tablePrefix}) {
+  FavoriteMovie map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Todo(
+    return FavoriteMovie(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       adult: attachedDatabase.typeMapping
@@ -266,12 +267,12 @@ class $TodosTable extends Todos with TableInfo<$TodosTable, Todo> {
   }
 
   @override
-  $TodosTable createAlias(String alias) {
-    return $TodosTable(attachedDatabase, alias);
+  $FavoriteMoviesTable createAlias(String alias) {
+    return $FavoriteMoviesTable(attachedDatabase, alias);
   }
 }
 
-class Todo extends DataClass implements Insertable<Todo> {
+class FavoriteMovie extends DataClass implements Insertable<FavoriteMovie> {
   final int id;
   final bool adult;
   final String originalTitle;
@@ -286,7 +287,7 @@ class Todo extends DataClass implements Insertable<Todo> {
   final bool video;
   final double voteAverage;
   final int voteCount;
-  const Todo(
+  const FavoriteMovie(
       {required this.id,
       required this.adult,
       required this.originalTitle,
@@ -321,8 +322,8 @@ class Todo extends DataClass implements Insertable<Todo> {
     return map;
   }
 
-  TodosCompanion toCompanion(bool nullToAbsent) {
-    return TodosCompanion(
+  FavoriteMoviesCompanion toCompanion(bool nullToAbsent) {
+    return FavoriteMoviesCompanion(
       id: Value(id),
       adult: Value(adult),
       originalTitle: Value(originalTitle),
@@ -340,10 +341,10 @@ class Todo extends DataClass implements Insertable<Todo> {
     );
   }
 
-  factory Todo.fromJson(Map<String, dynamic> json,
+  factory FavoriteMovie.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Todo(
+    return FavoriteMovie(
       id: serializer.fromJson<int>(json['id']),
       adult: serializer.fromJson<bool>(json['adult']),
       originalTitle: serializer.fromJson<String>(json['originalTitle']),
@@ -381,7 +382,7 @@ class Todo extends DataClass implements Insertable<Todo> {
     };
   }
 
-  Todo copyWith(
+  FavoriteMovie copyWith(
           {int? id,
           bool? adult,
           String? originalTitle,
@@ -396,7 +397,7 @@ class Todo extends DataClass implements Insertable<Todo> {
           bool? video,
           double? voteAverage,
           int? voteCount}) =>
-      Todo(
+      FavoriteMovie(
         id: id ?? this.id,
         adult: adult ?? this.adult,
         originalTitle: originalTitle ?? this.originalTitle,
@@ -414,7 +415,7 @@ class Todo extends DataClass implements Insertable<Todo> {
       );
   @override
   String toString() {
-    return (StringBuffer('Todo(')
+    return (StringBuffer('FavoriteMovie(')
           ..write('id: $id, ')
           ..write('adult: $adult, ')
           ..write('originalTitle: $originalTitle, ')
@@ -452,7 +453,7 @@ class Todo extends DataClass implements Insertable<Todo> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is Todo &&
+      (other is FavoriteMovie &&
           other.id == this.id &&
           other.adult == this.adult &&
           other.originalTitle == this.originalTitle &&
@@ -469,7 +470,7 @@ class Todo extends DataClass implements Insertable<Todo> {
           other.voteCount == this.voteCount);
 }
 
-class TodosCompanion extends UpdateCompanion<Todo> {
+class FavoriteMoviesCompanion extends UpdateCompanion<FavoriteMovie> {
   final Value<int> id;
   final Value<bool> adult;
   final Value<String> originalTitle;
@@ -484,7 +485,7 @@ class TodosCompanion extends UpdateCompanion<Todo> {
   final Value<bool> video;
   final Value<double> voteAverage;
   final Value<int> voteCount;
-  const TodosCompanion({
+  const FavoriteMoviesCompanion({
     this.id = const Value.absent(),
     this.adult = const Value.absent(),
     this.originalTitle = const Value.absent(),
@@ -500,7 +501,7 @@ class TodosCompanion extends UpdateCompanion<Todo> {
     this.voteAverage = const Value.absent(),
     this.voteCount = const Value.absent(),
   });
-  TodosCompanion.insert({
+  FavoriteMoviesCompanion.insert({
     this.id = const Value.absent(),
     required bool adult,
     required String originalTitle,
@@ -528,7 +529,7 @@ class TodosCompanion extends UpdateCompanion<Todo> {
         video = Value(video),
         voteAverage = Value(voteAverage),
         voteCount = Value(voteCount);
-  static Insertable<Todo> custom({
+  static Insertable<FavoriteMovie> custom({
     Expression<int>? id,
     Expression<bool>? adult,
     Expression<String>? originalTitle,
@@ -562,7 +563,7 @@ class TodosCompanion extends UpdateCompanion<Todo> {
     });
   }
 
-  TodosCompanion copyWith(
+  FavoriteMoviesCompanion copyWith(
       {Value<int>? id,
       Value<bool>? adult,
       Value<String>? originalTitle,
@@ -577,7 +578,7 @@ class TodosCompanion extends UpdateCompanion<Todo> {
       Value<bool>? video,
       Value<double>? voteAverage,
       Value<int>? voteCount}) {
-    return TodosCompanion(
+    return FavoriteMoviesCompanion(
       id: id ?? this.id,
       adult: adult ?? this.adult,
       originalTitle: originalTitle ?? this.originalTitle,
@@ -645,7 +646,7 @@ class TodosCompanion extends UpdateCompanion<Todo> {
 
   @override
   String toString() {
-    return (StringBuffer('TodosCompanion(')
+    return (StringBuffer('FavoriteMoviesCompanion(')
           ..write('id: $id, ')
           ..write('adult: $adult, ')
           ..write('originalTitle: $originalTitle, ')
@@ -667,10 +668,10 @@ class TodosCompanion extends UpdateCompanion<Todo> {
 
 abstract class _$ExampleDatabase extends GeneratedDatabase {
   _$ExampleDatabase(QueryExecutor e) : super(e);
-  late final $TodosTable todos = $TodosTable(this);
+  late final $FavoriteMoviesTable favoriteMovies = $FavoriteMoviesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [todos];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [favoriteMovies];
 }

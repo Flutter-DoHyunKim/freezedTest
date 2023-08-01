@@ -11,7 +11,7 @@ import 'package:path/path.dart' as p;
 part 'database.g.dart';
 
 @DriftDatabase(
-  tables: [Todos],
+  tables: [FavoriteMovies],
 )
 class ExampleDatabase extends _$ExampleDatabase {
   // we tell the database where to store the data with this constructor

@@ -4,15 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_testing/blocs/dialog_bloc.dart';
 import 'package:freezed_testing/blocs/movie_load_bloc/test_bloc.dart';
-import 'package:freezed_testing/data_source/local/database/database.dart';
 import 'package:freezed_testing/data_source/network/get_state.dart';
 import 'package:freezed_testing/models/movie_model.dart';
 import 'package:freezed_testing/provider/count_provider.dart';
+import 'package:freezed_testing/provider/get_famous_movie_provider.dart';
 import 'package:freezed_testing/provider/get_movie_provider.dart';
 import 'package:freezed_testing/provider/scroll_provider.dart';
 import 'package:freezed_testing/provider/todo_dao_provider.dart';
 import 'package:get/get.dart';
-import 'package:drift/drift.dart' as drift;
 
 import 'data_source/local/mappers/movie_mapper.dart';
 
@@ -355,18 +354,22 @@ class _TestingScreenState extends ConsumerState<TestingScreen> {
 
 
                           //drift
-                          print(movieModel![0]);
-                          TodosCompanion? todosCompanion = movieModel[0].toEntity();
-                          print(todosCompanion!.voteAverage);
-                          ref.watch(todoDaoProvider).addTodos(todosCompanion);
-                          List<Todo> temp= await ref.watch(todoDaoProvider).allTodoEntries();
-                         // print(temp[0].backdropPath);
-                          ResultMovieModel temp2=temp[0].toModel();
+                          //첫번째 movieModel local db에 insert
+                          ref.watch(movieDaoProvider).addEntry(movieModel![0].toEntity());
 
+                         // print(temp[0].backdropPath);
+                          ref.watch(getFamousMovieNotifier.notifier).insertFamousMovie();
+
+                          await Future.delayed(const Duration(seconds: 1)); //1초 뒤에 변하도록
+
+                          //2번째 movieModel로 update 해보자! id는 모두 1이다
+                        await ref.watch(movieDaoProvider).updateEntry(movieModel[1].toEntity());
+
+                          ref.watch(getFamousMovieNotifier.notifier).insertFamousMovie();
+
+                           await ref.watch(movieDaoProvider).delEntry(1); //local DB에서 id=1 삭제하기
 
                         //  print(temp[0]);
-
-
                         },
                         child: Container(
                           width: size.width/4,
@@ -382,6 +385,8 @@ class _TestingScreenState extends ConsumerState<TestingScreen> {
             const SizedBox(
               height: 12,
             ),
+            Text(ref.watch(getFamousMovieNotifier)?.originalTitle??''),
+
             Expanded(
                 child: movieModel != null
                     ? ListView.separated(
